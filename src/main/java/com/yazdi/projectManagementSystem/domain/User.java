@@ -27,6 +27,8 @@ public class User extends BaseEntity {
 
     private String password;
 
+    private Boolean isDeleted = false;
+
     @Enumerated(STRING)
     private UserRole role;
 

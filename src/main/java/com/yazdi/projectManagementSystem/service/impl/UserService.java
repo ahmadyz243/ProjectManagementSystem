@@ -18,4 +18,11 @@ public class UserService extends BaseService<User, UserDto, UserRepository>
         super(repository, mapper);
     }
 
+    @Override
+    public void deleteById(Long id) {
+        var user = super.findById(id);
+        user.setIsDeleted(true);
+        super.update(user);
+    }
+
 }

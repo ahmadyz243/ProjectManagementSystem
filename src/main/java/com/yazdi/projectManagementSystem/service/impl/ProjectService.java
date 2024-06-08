@@ -50,21 +50,23 @@ public class ProjectService extends BaseService<Project, ProjectDto, ProjectRepo
     }
 
     @Override
-    public ProjectDto findById(Long id) {
-        log.info("findById; input: {}", id);
-        if(!existsById(id))
-            throw new EntityNotFoundException(
-                    String.format("project not found with this id: %d", id)
-            );
-        Project project = repository.findById(id).get();
-        ProjectDto result = new ProjectDto();
-        BeanUtils.copyProperties(project, result);
-        result.setCreatorId(project.getCreator().getId());
-        log.info("findById; output: {}", result);
-        return result;
+    public ProjectDto update(ProjectDto dto) {
+        validateUpdateRequest(dto);
+        return super.update(dto);
     }
 
     private void validateProjectDtoSaveRequest(ProjectDtoSaveRequest dto){
+        var startDate = dto.getStartDate();
+        var dueDate = dto.getDueDate();
+        if(dueDate.isBefore(startDate))
+            throw new InvalidInputException("dueDate can not be before than startDate");
+        if(!userService.existsById(dto.getCreatorId()))
+            throw new EntityNotFoundException(
+                    String.format("creator not found with this id: %d", dto.getCreatorId())
+            );
+    }
+
+    private void validateUpdateRequest(ProjectDto dto){
         var startDate = dto.getStartDate();
         var dueDate = dto.getDueDate();
         if(dueDate.isBefore(startDate))

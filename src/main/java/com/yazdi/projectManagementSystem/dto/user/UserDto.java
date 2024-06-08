@@ -28,6 +28,8 @@ public class UserDto extends BaseDto {
 
     private UserRole role;
 
+    private Boolean isDeleted = false;
+
     private List<TaskDto> createdTasks = new ArrayList<>();
 
     private List<ProjectDto> createdProjects = new ArrayList<>();

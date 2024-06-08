@@ -56,6 +56,8 @@ public abstract class BaseService<T extends BaseEntity, DTO extends BaseDto, R e
     @Override
     public DTO findById(Long id) {
         log.info("findById: input: {}", id);
+        if(!existsById(id))
+            throw new EntityNotFoundException(String.format("entity not found with this id: %d", id));
         T t = repository.findById(id).get();
         DTO dto = mapper.entityToDto(t);
         log.info("findById; result: {}", dto);
@@ -79,7 +81,7 @@ public abstract class BaseService<T extends BaseEntity, DTO extends BaseDto, R e
     @Override
     public DTO update(DTO dto) {
         log.info("update: input: {}", dto);
-        if(!repository.existsById(dto.getId())){
+        if(!existsById(dto.getId())){
             throw new EntityNotFoundException(String.format("entity not found with this id: %d", dto.getId()));
         }
         T t = repository.save(mapper.dtoToEntity(dto));
@@ -91,6 +93,8 @@ public abstract class BaseService<T extends BaseEntity, DTO extends BaseDto, R e
     @Override
     public void deleteById(Long id) {
         log.info("deleteById; input: {}", id);
+        if(!existsById(id))
+            throw new EntityNotFoundException(String.format("entity not found with this id: %d", id));
         repository.deleteById(id);
         log.info("entity deleted successfully");
     }
