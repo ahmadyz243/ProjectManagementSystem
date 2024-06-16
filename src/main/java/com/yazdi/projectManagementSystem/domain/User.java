@@ -29,6 +29,9 @@ public class User extends BaseEntity {
 
     private Boolean isDeleted = false;
 
+    @OneToMany(mappedBy = "assignee")
+    private List<Task> assignedTasks;
+
     @Enumerated(STRING)
     private UserRole role;
 

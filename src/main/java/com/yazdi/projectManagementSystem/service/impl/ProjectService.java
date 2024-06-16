@@ -6,7 +6,7 @@ import com.yazdi.projectManagementSystem.dto.project.ProjectDto;
 import com.yazdi.projectManagementSystem.dto.project.ProjectDtoSaveRequest;
 import com.yazdi.projectManagementSystem.exception.EntityNotFoundException;
 import com.yazdi.projectManagementSystem.exception.InvalidInputException;
-import com.yazdi.projectManagementSystem.mapper.user.ProjectMapper;
+import com.yazdi.projectManagementSystem.mapper.project.ProjectMapper;
 import com.yazdi.projectManagementSystem.repository.ProjectRepository;
 import com.yazdi.projectManagementSystem.service.IProjectService;
 import com.yazdi.projectManagementSystem.service.IUserService;
@@ -44,7 +44,9 @@ public class ProjectService extends BaseService<Project, ProjectDto, ProjectRepo
         project.setCreator(user);
         user.getCreatedProjects().add(project);
         ProjectDto result = new ProjectDto();
-        BeanUtils.copyProperties(repository.save(project), result);
+        project = repository.save(project);
+        BeanUtils.copyProperties(project, result);
+        result.setCreatorId(project.getCreator().getId());
         log.info("save; output: {}", result);
         return result;
     }

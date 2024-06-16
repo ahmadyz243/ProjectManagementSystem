@@ -1,6 +1,5 @@
 package com.yazdi.projectManagementSystem.dto.task;
 
-import com.yazdi.projectManagementSystem.dto.base.BaseDto;
 import com.yazdi.projectManagementSystem.enumiration.TaskState;
 import lombok.*;
 
@@ -11,7 +10,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class TaskDto extends BaseDto {
+public class TaskDtoUpdateRequest {
 
     private String title;
 
@@ -19,18 +18,10 @@ public class TaskDto extends BaseDto {
 
     private Integer progressPercentage;
 
-    private LocalDateTime createDate;
-
     private LocalDateTime dueDate;
 
-    private LocalDateTime finishDate;
+    private Long assigneeId;
 
     private TaskState state;
-
-    private Long projectId;
-
-    private Long creatorId;
-
-    private Long assigneeId;
 
 }

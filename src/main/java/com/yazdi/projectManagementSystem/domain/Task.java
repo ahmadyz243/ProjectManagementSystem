@@ -25,11 +25,12 @@ public class Task extends BaseEntity {
 
     private LocalDateTime createDate;
 
-    private LocalDateTime startDate;
-
     private LocalDateTime dueDate;
 
     private LocalDateTime finishDate;
+
+    @ManyToOne
+    private User assignee;
 
     @Enumerated(STRING)
     private TaskState state;

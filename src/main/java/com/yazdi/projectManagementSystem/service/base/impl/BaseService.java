@@ -27,7 +27,7 @@ public abstract class BaseService<T extends BaseEntity, DTO extends BaseDto, R e
     public DTO save(DTO dto) {
         log.info("save; input: {}", dto);
         T t = mapper.dtoToEntity(dto);
-        repository.save(t);
+        t = repository.save(t);
         dto = mapper.entityToDto(t);
         log.info("save; result: {}", dto);
         return dto;

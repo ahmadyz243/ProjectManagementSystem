@@ -1,4 +1,4 @@
-package com.yazdi.projectManagementSystem.mapper.user;
+package com.yazdi.projectManagementSystem.mapper.project;
 
 import com.yazdi.projectManagementSystem.domain.Project;
 import com.yazdi.projectManagementSystem.dto.project.ProjectDto;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class ProjectMapper implements IMapper<Project, ProjectDto> {
+public class ProjectMapper implements IProjectMapper {
 
     private final UserRepository userRepository;
 

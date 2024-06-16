@@ -1,6 +1,7 @@
 package com.yazdi.projectManagementSystem.controller;
 
 import com.yazdi.projectManagementSystem.dto.user.UserDto;
+import com.yazdi.projectManagementSystem.dto.user.UserDtoSaveRequest;
 import com.yazdi.projectManagementSystem.service.IUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,10 +20,10 @@ public class UserController {
 
 
     @PostMapping("/save")
-    public ResponseEntity<UserDto> save(@RequestBody UserDto dto){
+    public ResponseEntity<UserDto> save(@RequestBody UserDtoSaveRequest dto){
         log.info("save; input: {}", dto);
-        dto = service.save(dto);
-        ResponseEntity<UserDto> response = ResponseEntity.ok(dto);
+        UserDto result = service.save(dto);
+        ResponseEntity<UserDto> response = ResponseEntity.ok(result);
         log.debug("save; response: {}", response);
         return response;
     }
