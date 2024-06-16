@@ -1,5 +1,6 @@
 package com.yazdi.projectManagementSystem.dto.task;
 
+import com.yazdi.projectManagementSystem.dto.base.BaseDto;
 import com.yazdi.projectManagementSystem.enumiration.TaskState;
 import lombok.*;
 
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class TaskDtoUpdateRequest {
+public class TaskDtoUpdateRequest extends BaseDto {
 
     private String title;
 

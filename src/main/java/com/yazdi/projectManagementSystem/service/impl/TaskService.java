@@ -47,6 +47,7 @@ public class TaskService extends BaseService<Task, TaskDto, TaskRepository>
         task.setCreateDate(LocalDateTime.now());
         task.setProgressPercentage(0);
         task.setState(IN_PROGRESS);
+        task = repository.save(task);
         TaskDto result = mapper.entityToDto(task);
         log.info("save: result: {}", result);
         return result;
@@ -57,7 +58,7 @@ public class TaskService extends BaseService<Task, TaskDto, TaskRepository>
         log.info("update; input: {}", dto);
         validateUpdateTask(dto);
         Task task = taskMapper.TaskDtoUpdateRequestToEntity(dto);
-        repository.save(task);
+        task = repository.save(task);
         TaskDto result = mapper.entityToDto(task);
         log.info("update: output: {}", result);
         return result;
@@ -97,8 +98,17 @@ public class TaskService extends BaseService<Task, TaskDto, TaskRepository>
 
     private void validateUpdateTask(TaskDtoUpdateRequest dto){
         var now = LocalDateTime.now();
+        var taskId = dto.getId();
         var dueDate = dto.getDueDate();
         var assigneeId = dto.getAssigneeId();
+        if(taskId == null){
+            log.error("field id can not be null");
+            throw new InvalidInputException("field id can not be null");
+        }
+        if(!existsById(taskId)){
+            log.error(String.format("task was not found with this id: %d", taskId));
+            throw new EntityNotFoundException(String.format("task was not found with this id: %d", taskId));
+        }
         if(dueDate.isBefore(now)){
             log.error("dueDate can not be before now");
             throw new InvalidInputException("dueDate can not be before now");

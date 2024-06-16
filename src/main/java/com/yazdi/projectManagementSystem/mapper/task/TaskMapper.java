@@ -4,8 +4,8 @@ import com.yazdi.projectManagementSystem.domain.Task;
 import com.yazdi.projectManagementSystem.dto.task.TaskDto;
 import com.yazdi.projectManagementSystem.dto.task.TaskDtoSaveRequest;
 import com.yazdi.projectManagementSystem.dto.task.TaskDtoUpdateRequest;
-import com.yazdi.projectManagementSystem.mapper.IMapper;
 import com.yazdi.projectManagementSystem.repository.ProjectRepository;
+import com.yazdi.projectManagementSystem.repository.TaskRepository;
 import com.yazdi.projectManagementSystem.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -17,6 +17,7 @@ public class TaskMapper implements ITaskMapper {
 
     private final UserRepository userRepository;
     private final ProjectRepository projectRepository;
+    private final TaskRepository repository;
 
     @Override
     public Task dtoToEntity(TaskDto taskDto) {
@@ -36,6 +37,9 @@ public class TaskMapper implements ITaskMapper {
         BeanUtils.copyProperties(entity, result);
         result.setCreatorId(entity.getCreator().getId());
         result.setProjectId(entity.getProject().getId());
+        var assignee = entity.getAssignee();
+        if(assignee != null)
+            result.setAssigneeId(assignee.getId());
         return result;
     }
 
@@ -53,7 +57,7 @@ public class TaskMapper implements ITaskMapper {
 
     @Override
     public Task TaskDtoUpdateRequestToEntity(TaskDtoUpdateRequest updateRequest) {
-        Task task = new Task();
+        Task task = repository.findById(updateRequest.getId()).get();
         BeanUtils.copyProperties(updateRequest, task);
         task.setAssignee(userRepository.findById(updateRequest.getAssigneeId()).get());
         return task;
