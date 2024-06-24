@@ -9,8 +9,12 @@ import com.yazdi.projectManagementSystem.repository.UserRepository;
 import com.yazdi.projectManagementSystem.service.IUserService;
 import com.yazdi.projectManagementSystem.service.base.impl.BaseService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -42,6 +46,17 @@ public class UserService extends BaseService<User, UserDto, UserRepository>
         user.setIsDeleted(true);
         super.update(user);
         log.info("user deleted successfully");
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<User> userOptional = repository.findByUsername(username);
+        User user = userOptional.orElseThrow(
+                () -> new UsernameNotFoundException(
+                        String.format("User not found with username: %s", username)
+                )
+        );
+        return user;
     }
 
 }
