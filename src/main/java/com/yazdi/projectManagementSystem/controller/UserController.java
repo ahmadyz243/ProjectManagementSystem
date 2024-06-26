@@ -19,6 +19,16 @@ public class UserController {
     private final IUserService service;
 
 
+    @PostMapping("/register")
+    public ResponseEntity<UserDto> register(@RequestBody UserDto dto){
+        return null;
+    }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<UserDto> authenticate(@RequestBody UserDto dto){
+        return null;
+    }
+
     @PostMapping("/save")
     public ResponseEntity<UserDto> save(@RequestBody UserDtoSaveRequest dto){
         log.info("save; input: {}", dto);
