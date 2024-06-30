@@ -1,7 +1,7 @@
 package com.yazdi.projectManagementSystem.controller;
 
-import com.yazdi.projectManagementSystem.dto.user.UserDto;
-import com.yazdi.projectManagementSystem.dto.user.UserDtoSaveRequest;
+import com.yazdi.projectManagementSystem.dto.user.*;
+import com.yazdi.projectManagementSystem.service.IAuthenticationService;
 import com.yazdi.projectManagementSystem.service.IUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,16 +17,21 @@ import java.util.List;
 public class UserController {
 
     private final IUserService service;
+    private final IAuthenticationService authenticationService;
 
 
     @PostMapping("/register")
-    public ResponseEntity<UserDto> register(@RequestBody UserDto dto){
-        return null;
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest dto){
+        return ResponseEntity.ok(
+                authenticationService.register(dto)
+        );
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<UserDto> authenticate(@RequestBody UserDto dto){
-        return null;
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest dto){
+        return ResponseEntity.ok(
+                authenticationService.authenticate(dto)
+        );
     }
 
     @PostMapping("/save")
