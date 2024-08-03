@@ -17,22 +17,7 @@ import java.util.List;
 public class UserController {
 
     private final IUserService service;
-    private final IAuthenticationService authenticationService;
 
-
-    @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest dto){
-        return ResponseEntity.ok(
-                authenticationService.register(dto)
-        );
-    }
-
-    @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest dto){
-        return ResponseEntity.ok(
-                authenticationService.authenticate(dto)
-        );
-    }
 
     @PostMapping("/save")
     public ResponseEntity<UserDto> save(@RequestBody UserDtoSaveRequest dto){

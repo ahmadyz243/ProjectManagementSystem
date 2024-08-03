@@ -17,7 +17,8 @@ import java.util.function.Function;
 @Service
 public class JwtService implements IJwtService{
 
-    private static final String SECRET_KEY = "0xA3F5B2D1C9E8B4A76D2C1E5F9B8D4C3E";
+    //private static final String SECRET_KEY = "0xA3F5B2D1C9E8B4A76D2C1E5F9B8D4C3E";
+    private static final String SECRET_KEY = "WjF3Zk9zZ3F6cGZ0b2lqN1d2YjR6bG1wYjZpY3B1c2VjaG5y";
 
 
     @Override

@@ -29,6 +29,7 @@ public class AuthenticationService implements IAuthenticationService {
 
     @Override
     public AuthenticationResponse register(RegisterRequest request) {
+        //todo check for user existence
         User user = new User();
         user.setFirstname(request.getFirstname());
         user.setLastname(request.getLastname());
@@ -36,6 +37,8 @@ public class AuthenticationService implements IAuthenticationService {
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(DEVELOPER);
+        user.setIsConfirmed(false);
+        user.setIsDeleted(false);
         userRepository.save(user);
         return new AuthenticationResponse(
                 jwtService.generateToken(user)

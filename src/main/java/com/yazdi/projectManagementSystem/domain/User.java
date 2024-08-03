@@ -3,7 +3,9 @@ package com.yazdi.projectManagementSystem.domain;
 import com.yazdi.projectManagementSystem.domain.base.BaseEntity;
 import com.yazdi.projectManagementSystem.enumiration.UserRole;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,6 +20,8 @@ import static jakarta.persistence.EnumType.STRING;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "_User")
 public class User extends BaseEntity implements UserDetails {
 
@@ -30,6 +34,8 @@ public class User extends BaseEntity implements UserDetails {
     private String username;
 
     private String password;
+
+    private Boolean isConfirmed;
 
     private Boolean isDeleted = false;
 

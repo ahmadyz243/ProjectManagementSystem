@@ -8,5 +8,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface IUserService extends IBaseService<UserDto>, UserDetailsService {
 
     UserDto save(UserDtoSaveRequest dto);
+    Long countUserAdmins();
 
 }

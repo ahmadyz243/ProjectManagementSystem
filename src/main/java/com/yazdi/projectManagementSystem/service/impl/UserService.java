@@ -3,6 +3,7 @@ package com.yazdi.projectManagementSystem.service.impl;
 import com.yazdi.projectManagementSystem.domain.User;
 import com.yazdi.projectManagementSystem.dto.user.UserDto;
 import com.yazdi.projectManagementSystem.dto.user.UserDtoSaveRequest;
+import com.yazdi.projectManagementSystem.enumiration.UserRole;
 import com.yazdi.projectManagementSystem.mapper.user.IUserMapper;
 import com.yazdi.projectManagementSystem.mapper.user.UserMapper;
 import com.yazdi.projectManagementSystem.repository.UserRepository;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+
+import static com.yazdi.projectManagementSystem.enumiration.UserRole.ADMIN;
 
 @Service
 @Transactional
@@ -57,6 +60,11 @@ public class UserService extends BaseService<User, UserDto, UserRepository>
                 )
         );
         return user;
+    }
+
+    @Override
+    public Long countUserAdmins() {
+        return repository.countByRole(ADMIN);
     }
 
 }
