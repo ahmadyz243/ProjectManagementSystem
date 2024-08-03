@@ -23,6 +23,7 @@ public class JwtService implements IJwtService{
 
     @Override
     public String generateToken(Map<String, Object> extraClaims, UserDetails user) {
+        //todo: fix warnings
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
