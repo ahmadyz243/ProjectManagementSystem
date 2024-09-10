@@ -17,19 +17,17 @@ import java.util.function.Function;
 @Service
 public class JwtService implements IJwtService{
 
-    //private static final String SECRET_KEY = "0xA3F5B2D1C9E8B4A76D2C1E5F9B8D4C3E";
     private static final String SECRET_KEY = "WjF3Zk9zZ3F6cGZ0b2lqN1d2YjR6bG1wYjZpY3B1c2VjaG5y";
 
 
     @Override
     public String generateToken(Map<String, Object> extraClaims, UserDetails user) {
-        //todo: fix warnings
         return Jwts
                 .builder()
-                .setClaims(extraClaims)
-                .setSubject(user.getUsername())
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60))
+                .claims(extraClaims)
+                .subject(user.getUsername())
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
